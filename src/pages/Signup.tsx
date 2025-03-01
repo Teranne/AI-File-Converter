@@ -3,9 +3,12 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { useToast } from "@/hooks/use-toast";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,17 +25,30 @@ const Signup = () => {
       return;
     }
 
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters");
+      return;
+    }
+
     setIsLoading(true);
     
-    // Simulate signup - would be replaced with actual authentication
     try {
-      // Mock successful signup after a delay
-      await new Promise(resolve => setTimeout(resolve, 800));
-      console.log("Signing up with:", { name, email, password });
-      navigate("/");
-    } catch (err) {
-      setError("Failed to create account");
-      console.error(err);
+      const auth = getAuth();
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      
+      // Update user profile with name
+      console.log("Account created:", userCredential.user);
+      
+      toast({
+        title: "Account created",
+        description: "You have successfully signed up",
+      });
+      
+      // Redirect to dashboard
+      navigate("/dashboard");
+    } catch (err: any) {
+      console.error("Signup error:", err);
+      setError(err.message || "Failed to create account");
     } finally {
       setIsLoading(false);
     }

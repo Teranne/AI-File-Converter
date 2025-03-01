@@ -3,9 +3,12 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { ArrowLeft, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { useToast } from "@/hooks/use-toast";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -22,15 +25,19 @@ const ForgotPassword = () => {
 
     setIsLoading(true);
     
-    // Simulate password reset request - would be replaced with actual implementation
     try {
-      // Mock successful reset request after a delay
-      await new Promise(resolve => setTimeout(resolve, 800));
-      console.log("Password reset requested for:", email);
+      const auth = getAuth();
+      await sendPasswordResetEmail(auth, email);
+      
+      toast({
+        title: "Reset email sent",
+        description: "Check your inbox for password reset instructions",
+      });
+      
       setSuccess(true);
-    } catch (err) {
-      setError("Failed to send reset instructions. Please try again.");
-      console.error(err);
+    } catch (err: any) {
+      console.error("Password reset error:", err);
+      setError(err.message || "Failed to send reset instructions. Please try again.");
     } finally {
       setIsLoading(false);
     }
