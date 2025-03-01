@@ -1,6 +1,7 @@
 
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const CTASection = () => {
   return (
@@ -26,11 +27,11 @@ const CTASection = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button size="lg" className="w-full sm:w-auto animate-pulse-slow">
-                Get Started Free <ArrowRight size={16} className="ml-2" />
+              <Button size="lg" className="w-full sm:w-auto animate-pulse-slow" asChild>
+                <Link to="/signup">Get Started Free <ArrowRight size={16} className="ml-2" /></Link>
               </Button>
-              <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                View Demo
+              <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
+                <Link to="/login">View Demo</Link>
               </Button>
             </div>
           </div>

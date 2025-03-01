@@ -1,6 +1,7 @@
 
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const plans = [
   {
@@ -99,8 +100,9 @@ const PricingSection = () => {
                 <Button 
                   className={`w-full mb-6 ${plan.popular ? "" : "bg-secondary text-secondary-foreground hover:bg-secondary/80"}`}
                   variant={plan.popular ? "default" : "outline"}
+                  asChild
                 >
-                  {plan.cta}
+                  <Link to="/signup">{plan.cta}</Link>
                 </Button>
                 
                 <div className="space-y-3">

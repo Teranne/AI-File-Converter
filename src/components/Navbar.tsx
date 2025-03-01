@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
@@ -27,11 +28,11 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <nav className="flex items-center justify-between">
           <div className="flex items-center">
-            <a href="#" className="flex items-center">
+            <Link to="/" className="flex items-center">
               <span className="font-display text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-600">
                 AI File Converter
               </span>
-            </a>
+            </Link>
           </div>
 
           {/* Desktop Menu */}
@@ -69,11 +70,11 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="outline" size="sm">
-              Log In
+            <Button variant="outline" size="sm" asChild>
+              <Link to="/login">Log In</Link>
             </Button>
-            <Button size="sm">
-              Get Started
+            <Button size="sm" asChild>
+              <Link to="/signup">Get Started</Link>
             </Button>
           </div>
 
@@ -130,11 +131,11 @@ const Navbar = () => {
                 FAQ
               </a>
               <div className="pt-4 flex flex-col space-y-3">
-                <Button variant="outline" className="w-full justify-center">
-                  Log In
+                <Button variant="outline" className="w-full justify-center" asChild>
+                  <Link to="/login" onClick={() => setMobileMenuOpen(false)}>Log In</Link>
                 </Button>
-                <Button className="w-full justify-center">
-                  Get Started
+                <Button className="w-full justify-center" asChild>
+                  <Link to="/signup" onClick={() => setMobileMenuOpen(false)}>Get Started</Link>
                 </Button>
               </div>
             </div>
