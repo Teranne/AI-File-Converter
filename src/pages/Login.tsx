@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
@@ -131,9 +130,9 @@ const Login = () => {
                 </div>
 
                 <div className="text-sm">
-                  <a href="#" className="font-medium text-primary hover:text-primary/80">
+                  <Link to="/forgot-password" className="font-medium text-primary hover:text-primary/80">
                     Forgot your password?
-                  </a>
+                  </Link>
                 </div>
               </div>
 
